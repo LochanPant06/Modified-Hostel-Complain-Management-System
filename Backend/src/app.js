@@ -7,15 +7,13 @@ import complaintRoutes from "./routes/complaint.routes.js";
 
 const app = express();
 
-
 app.use(cors());
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
-  })
+  }),
 );
-
 
 app.use(cookieParser());
 
@@ -26,8 +24,6 @@ app.use(
     limit: "16kb",
   }),
 );
-
-
 
 app.use("/api/v1/students", studentRouter);
 app.use("/api/v1/admins", adminRouter);
