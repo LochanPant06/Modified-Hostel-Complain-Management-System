@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import Student from "../models/student.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
