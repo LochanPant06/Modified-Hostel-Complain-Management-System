@@ -8,11 +8,21 @@ import complaintRoutes from "./routes/complaint.routes.js";
 const app = express();
 
 app.use(cors());
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//     credentials: true,
+//   }),
+// );
+
 app.use(
   cors({
-    origin: "modified-hostel-complain-management.vercel.app",
+    origin: [
+      "http://localhost:5173",
+      "https://modified-hostel-complain-management.vercel.app",
+    ],
     credentials: true,
-  }),
+  })
 );
 
 app.use(cookieParser());
