@@ -25,6 +25,8 @@ const app = express();
 app.use(
   cors({
     origin: true,
+    // one main issue is comming that url changing everytime, i have change versel to production but still not workin i will check this later 
+    //  origin: 'https://modified-hostel-complain-management.vercel.app'
     credentials: true,
   })
 );
