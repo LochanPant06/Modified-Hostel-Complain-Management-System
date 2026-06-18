@@ -19,9 +19,6 @@ connectDB()
     console.log("MONGO db connection failed !!! ", err);
   });
 
-  app.get("/check", (req, res) => {
-  res.send("Server is running");
-});
-  app.get("/", (req, res) => {
-  res.send("Server is running");
-});
+//   app.get("/", (req, res) => {
+//   res.send("Server is running");
+// });
