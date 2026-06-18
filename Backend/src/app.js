@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -17,8 +18,7 @@ const app = express();
 
 app.use(
   cors({
-    origin:
-      "https://modified-hostel-complain-management.vercel.app", 
+    origin: process.env.CLIENT_URL?.replace(/\/$/, "") || false,
     credentials: true,
   })
 );

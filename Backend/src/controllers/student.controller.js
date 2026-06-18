@@ -106,7 +106,8 @@ const loginStudent = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: false,
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === "production",
   };
 
   return res
@@ -160,11 +161,17 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     student._id,
   );
 
+  const options = {
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === "production",
+  };
+
   // Send New Cookies
   return res
     .status(200)
-    .cookie("accessToken", accessToken)
-    .cookie("refreshToken", refreshToken)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
     .json({
       accessToken,
       refreshToken,
@@ -187,6 +194,7 @@ const logoutStudent = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     secure: process.env.NODE_ENV === "production",
   };
 
