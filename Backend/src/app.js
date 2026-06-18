@@ -8,12 +8,23 @@ import complaintRoutes from "./routes/complaint.routes.js";
 
 const app = express();
 
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       "https://modified-hostel-complain-management.vercel.app",
+//     ],
+//     credentials: true,
+//   })
+// );
+
+// app.use(cors({
+//   origin: 'https://modified-hostel-complain-management-system-mmc23ssse.vercel.app'
+// }));
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://modified-hostel-complain-management.vercel.app",
-    ],
+    origin: true,
     credentials: true,
   })
 );
