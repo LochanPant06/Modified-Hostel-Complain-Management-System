@@ -1,115 +1,292 @@
 # Modified-Hostel-Complain-Management-System
 
-A full‑stack web application that lets students submit hostel complaints and admins manage, track, and resolve them.
+A full-stack web application that enables students to submit hostel complaints and allows administrators to efficiently manage, track, and resolve them through a centralized dashboard.
 
 ---
 
-## Demo
-Add screenshots or a live demo URL here (optional).
+## Live Demo
+
+Frontend: https://modified-hostel-complain-management.vercel.app
+
+Backend API: https://modified-hostel-complain-management-nvsg.onrender.com
 
 ---
 
-## Tech stack
-- Backend: Node.js, Express
-- Database: MongoDB, Mongoose
-- Auth & security: bcrypt, JSON Web Tokens (access + refresh), cookie-based auth, CORS, dotenv
-- Frontend: React, Vite, React Router, Tailwind CSS
-- HTTP client: Axios
+## Tech Stack
+
+### Frontend
+
+* React.js
+* Vite
+* React Router DOM
+* Tailwind CSS
+* Axios
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB Atlas
+* Mongoose
+
+### Authentication & Security
+
+* JWT Authentication (Access Token + Refresh Token)
+* HTTP-Only Cookies
+* bcrypt Password Hashing
+* Role-Based Access Control (RBAC)
+* CORS
+* dotenv
+
+### Deployment
+
+* Vercel (Frontend)
+* Render (Backend)
+* MongoDB Atlas (Database)
 
 ---
 
-## Key features
-- Student registration and login with secure password hashing
-- JWT access + refresh token authentication stored in cookies
-- Role-based authorization (student vs admin)
-- Students: create, view, and delete their complaints
-- Admins: view all complaints, update complaint status (Pending → In Progress → Resolved/Rejected)
-- Clean, consistent API responses using a centralized `ApiResponse` wrapper
-- Responsive UI with dashboards and protected routes
+## Architecture
+
+```text
+Student / Admin
+        │
+        ▼
+React + Vite Frontend
+        │
+        ▼
+Axios API Requests
+        │
+        ▼
+Express.js REST API
+        │
+        ▼
+JWT Authentication
+        │
+        ▼
+MongoDB Atlas
+```
 
 ---
 
-## Repo structure (high level)
-- Backend
-  - `src/controllers/` — request handlers (student, admin, complaint)
-  - `src/models/` — Mongoose schemas (Student, Admin, Complaint)
-  - `src/middleware/` — auth.middleware.js, admin.middleware.js
-  - `src/routes/` — route definitions for students, admins, complaints
-  - `src/db/` — MongoDB connection
-  - `src/app.js`, `src/index.js`
-  - `utils/` — `ApiResponse`, error helpers, async handler
-- Frontend
-  - `src/pages/` — Login, Register, Student/Admin dashboards, CreateComplaint, MyComplaints
-  - `src/components/` — Navbar, ProtectedRoute, Loader
-  - `src/api/axios.js` — Axios instance configured with `withCredentials`
-  - Vite + Tailwind CSS setup
+## Key Features
+
+### Student Features
+
+* Student registration and login
+* Secure authentication using JWT
+* Create complaints
+* View personal complaints
+* Delete submitted complaints
+* Track complaint status
+
+### Admin Features
+
+* Admin registration and login
+* View all complaints
+* Update complaint status
+* Manage complaint workflow
+* Monitor complaint resolution process
+
+### System Features
+
+* Role-Based Access Control (RBAC)
+* JWT Access & Refresh Token Authentication
+* Protected Routes
+* Secure Cookie-Based Authentication
+* Responsive User Interface
+* Cloud Deployment
 
 ---
 
-## Quick start
+## Security Features
 
-Prerequisites:
-- Node.js (v16+)
-- MongoDB (local or cloud)
+* Password hashing using bcrypt
+* JWT Access & Refresh Token authentication
+* HTTP-only cookies for secure token storage
+* Role-Based Access Control (RBAC)
+* Protected API routes
+* CORS configuration for secure cross-origin communication
+* Environment variable management using dotenv
+* Backend authorization through JWT verification middleware
 
-Backend
+---
+
+## Project Highlights
+
+* Developed 15+ RESTful API endpoints
+* Implemented JWT Authentication with Refresh Token workflow
+* Designed role-based access control for Students and Admins
+* Built complete CRUD functionality for complaint management
+* Integrated MongoDB Atlas for cloud database management
+* Deployed full-stack application using Vercel and Render
+
+---
+
+## Repository Structure
+
+### Backend
+
+```text
+Backend/
+│
+├── src/
+│   ├── controllers/
+│   ├── models/
+│   ├── middleware/
+│   ├── routes/
+│   ├── db/
+│   ├── utils/
+│   ├── app.js
+│   └── index.js
+│
+├── package.json
+└── .env
+```
+
+### Frontend
+
+```text
+Frontend/
+│
+├── src/
+│   ├── api/
+│   ├── components/
+│   ├── pages/
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── package.json
+└── vite.config.js
+```
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+* Node.js (v16+)
+* MongoDB Atlas Account
+
+### Backend Setup
+
 ```bash
 cd Backend
-cp .env.example .env   # create .env and fill values
+
 npm install
-npm run dev            # starts server (nodemon)
+
+npm run dev
 ```
 
-Frontend
+### Frontend Setup
+
 ```bash
 cd Frontend
+
 npm install
-npm run dev            # starts Vite dev server (http://localhost:5173)
+
+npm run dev
+```
+
+Application runs at:
+
+```text
+Frontend:
+http://localhost:5173
+
+Backend:
+http://localhost:3000
 ```
 
 ---
 
-## Example environment variables (.env)
-```
+## Environment Variables
+
+### Backend (.env)
+
+```env
 PORT=3000
+
 MONGODB_URI=<your-mongodb-uri>
-DB_NAME=hostel_hcms
-ACCESS_TOKEN_SECRET=<random-secret>
-REFRESH_TOKEN_SECRET=<random-secret>
-ACCESS_TOKEN_EXPIRY=15m
-REFRESH_TOKEN_EXPIRY=7d
+
+ACCESS_TOKEN_SECRET=<your-secret>
+
+ACCESS_TOKEN_EXPIRY=1d
+
+REFRESH_TOKEN_SECRET=<your-secret>
+
+REFRESH_TOKEN_EXPIRY=10d
+
 NODE_ENV=development
 ```
 
 ---
 
-## API endpoints (summary)
+## API Endpoints
 
-Auth / Students
-- `POST /api/v1/students/register` — register a student
-- `POST /api/v1/students/login` — login (sets `accessToken` and `refreshToken` cookies)
-- `POST /api/v1/students/refresh-token` — refresh access token
-- `POST /api/v1/students/logout` — logout (clears cookies)
-- `GET  /api/v1/students/current-student` — get current student (auth required)
+### Student Authentication
 
-Admin
-- `POST /api/v1/admins/register` — register admin
-- `POST /api/v1/admins/login` — admin login
-- `POST /api/v1/admins/refresh-token` — refresh admin access token
-- `GET  /api/v1/admins/current-admin` — get current admin (auth required)
+| Method | Endpoint                         |
+| ------ | -------------------------------- |
+| POST   | /api/v1/students/register        |
+| POST   | /api/v1/students/login           |
+| POST   | /api/v1/students/refresh-token   |
+| POST   | /api/v1/students/logout          |
+| GET    | /api/v1/students/current-student |
 
-Complaints
-- `POST   /api/v1/complaints/create` — create a complaint (student)
-- `GET    /api/v1/complaints/my-complaints` — fetch logged-in student complaints
-- `GET    /api/v1/complaints/all` — fetch all complaints (admin only)
-- `PATCH  /api/v1/complaints/:complaintId/status` — update complaint status (admin only)
-- `DELETE /api/v1/complaints/:complaintId` — delete complaint (student owner only)
+### Admin Authentication
+
+| Method | Endpoint                     |
+| ------ | ---------------------------- |
+| POST   | /api/v1/admins/register      |
+| POST   | /api/v1/admins/login         |
+| POST   | /api/v1/admins/refresh-token |
+| GET    | /api/v1/admins/current-admin |
+
+### Complaint Management
+
+| Method | Endpoint                               |
+| ------ | -------------------------------------- |
+| POST   | /api/v1/complaints/create              |
+| GET    | /api/v1/complaints/my-complaints       |
+| GET    | /api/v1/complaints/all                 |
+| PATCH  | /api/v1/complaints/:complaintId/status |
+| DELETE | /api/v1/complaints/:complaintId        |
 
 ---
 
 ## Implementation Notes
-- Passwords hashed via `bcrypt` in Mongoose pre-save hooks.
-- Refresh tokens are generated and stored per-user in DB; refresh flow compares incoming cookie to DB value.
-- `verifyJWT` middleware reads `accessToken` from cookies or `Authorization` header and attaches `req.user`.
-- `verifyAdmin` middleware allows only users with admin role for protected admin routes.
-- Frontend `ProtectedRoute` uses `localStorage` role flag to restrict navigation (frontend check complements backend auth).
+
+* Passwords are hashed using bcrypt before storage.
+* Refresh Tokens are stored securely in the database.
+* Access Tokens are verified through JWT middleware.
+* HTTP-only cookies are used for secure token transmission.
+* Frontend Protected Routes provide UI-level access restriction.
+* Backend JWT verification acts as the primary authorization layer.
+* API responses are standardized using a centralized ApiResponse utility.
+
+---
+
+## Future Enhancements
+
+* Complaint image upload support
+* Email notifications on complaint status updates
+* Real-time notifications using Socket.io
+* Complaint category management
+* Analytics dashboard for complaint insights
+* Progressive Web App (PWA) support
+* Multi-hostel support for larger institutions
+
+---
+
+## Author
+
+**Lochan Pant**
+
+B.Tech Mechanical Engineering, NIT Uttarakhand
+
+Aspiring Software Engineer | MERN Stack Developer | Problem Solver
