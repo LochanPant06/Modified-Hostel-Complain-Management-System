@@ -274,10 +274,10 @@ NODE_ENV=development
 ## Future Enhancements
 
 * Complaint image upload support
+* User Id Card Verification
 * Email notifications on complaint status updates
 * Real-time notifications using Socket.io
 * Complaint category management
-* Analytics dashboard for complaint insights
 * Progressive Web App (PWA) support
 * Multi-hostel support for larger institutions
 
