@@ -13,7 +13,6 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://modified-hostel-complain-management.vercel.app",
-      "https://modified-hostel-complain-management-system-35ql4m573.vercel.app",
     ],
     credentials: true,
   })
